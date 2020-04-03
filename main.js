@@ -8,7 +8,10 @@ document.querySelector(".play").addEventListener("click", () => {
   oscillator = audioContext.createOscillator();
   oscillator.type = "sine"; // sine, square, sawtooth, triangleがある
   oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // 440はA4(4番目のラ)
-  oscillator.connect(gainNode).connect(audioContext.destination);
+  oscillator
+    .connect(panner)
+    .connect(gainNode)
+    .connect(audioContext.destination);
   oscillator.start();
 });
 
@@ -16,13 +19,27 @@ document.querySelector(".stop").addEventListener("click", () => {
   oscillator.stop();
 });
 
-let volumeSlider = document.querySelector("#volume")
-const gainText = document.querySelector(".gain-text");
+let volumeSlider = document.querySelector("#volume");
+const gainText = document.querySelector("#gain-text");
 
-volumeSlider.addEventListener("input", (e) => {
-  gainNode.gain.value = e.target.value
-  gainText.innerHTML = gainNode.gain.value
-}, false)
+volumeSlider.addEventListener(
+  "input",
+  e => {
+    gainNode.gain.value = e.target.value;
+    gainText.innerHTML = gainNode.gain.value;
+  },
+  false
+);
 
-
-
+const pannerSlider = document.querySelector("#pan");
+const panText = document.querySelector("#pan-text");
+const panner = new StereoPannerNode(audioContext, { pan: 0 });
+pannerSlider.addEventListener(
+  "input",
+  e => {
+    panner.pan.value = e.target.value;
+    panText.innerHTML = "pan:" + e.target.value;
+  },
+  false
+);
+oscillator.connect(panner).connect(audioContext.destination);
