@@ -26,7 +26,7 @@ volumeSlider.addEventListener(
   "input",
   e => {
     gainNode.gain.value = e.target.value;
-    gainText.innerHTML = gainNode.gain.value;
+    gainText.innerHTML = "volume:" + gainNode.gain.value;
   },
   false
 );
@@ -42,4 +42,10 @@ pannerSlider.addEventListener(
   },
   false
 );
-oscillator.connect(panner).connect(audioContext.destination);
+
+const hzSlider = document.querySelector("#hz");
+const hzText = document.querySelector("#hz-text");
+hzSlider.addEventListener("input", e => {
+  oscillator.frequency.value = e.target.value;
+  hzText.innerHTML = e.target.value + "Hz";
+});
