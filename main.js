@@ -12,7 +12,9 @@ document.querySelector(".play").addEventListener("click", () => {
     .connect(panner)
     .connect(gainNode)
     .connect(audioContext.destination);
+  lfo.connect(depth).connect(oscillator.frequency);
   oscillator.start();
+  lfo.start();
 });
 
 document.querySelector(".stop").addEventListener("click", () => {
@@ -26,7 +28,7 @@ volumeSlider.addEventListener(
   "input",
   e => {
     gainNode.gain.value = e.target.value;
-    gainText.innerHTML = "volume:" + gainNode.gain.value;
+    gainText.innerHTML = "volume:" + e.target.value;
   },
   false
 );
@@ -50,10 +52,29 @@ hzSlider.addEventListener("input", e => {
   hzText.innerHTML = e.target.value + "Hz";
 });
 
-const waveButtons = document.querySelectorAll(".wave")
+const waveButtons = document.querySelectorAll(".wave");
 waveButtons.forEach(button => {
-  const type = button.dataset.wave
-  button.addEventListener("click", () => {
-    oscillator.type = type
-  })
-})
+  button.addEventListener("click", e => {
+    const type = e.target.value;
+    oscillator.type = type;
+  });
+});
+
+const lfo = audioContext.createOscillator();
+const depth = audioContext.createGain();
+const depthController = document.querySelector("#depth");
+const depthText = document.querySelector("#depth-text");
+
+const rateController = document.querySelector("#rate");
+const rateText = document.querySelector("#rate-text");
+depthController.addEventListener("input", e => {
+  depth.gain.value = e.target.value;
+  depthText.innerHTML = "depth:" + e.target.value;
+});
+
+rateController.addEventListener("input", e => {
+  lfo.frequency.value = e.target.value;
+  rateText.innerHTML = "depth:" + e.target.value;
+});
+depth.gain.value = 0;
+lfo.frequency.value = 0;

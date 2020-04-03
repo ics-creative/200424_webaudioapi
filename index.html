@@ -20,16 +20,30 @@
     </div>
     <div>
       <h2>Hz（音程）</h2>
-      <input id="hz" type="range" min="220" max="2000" value="440" step="5" />
+      <input id="hz" type="range" min="20" max="2000" value="440" step="5" />
       <span id="hz-text">440Hz</span>
     </div>
     <div>
       <h2>Wave Type（音色）</h2>
-      <button class="wave" data-wave="sine">sine</button>
-      <button class="wave" data-wave="square">square</button>
-      <button class="wave" data-wave="sawtooth">sawtooth</button>
-      <button class="wave" data-wave="triangle">triangle</button>
+      <input type="radio" class="wave" name="wave" value="sine" checked>sine</button>
+      <input type="radio" class="wave" name="wave" value="square">square</button>
+      <input type="radio" class="wave" name="wave" value="sawtooth">sawtooth</button>
+      <input type="radio" class="wave" name="wave" value="triangle">triangle</button>
+    </div>
+    <div>
+      <h2>lfo（エフェクト）</h2>
+      <p>※depthがビブラートの大きさ、rateが振動の速さです</p>
+      <input id="depth" type="range" min="0" max="50" value="0" step="0.05" />
+      <span id="depth-text">depth:0</span>
+      <input id="rate" type="range" min="0" max="10" value="0" step="0.05" />
+      <span id="rate-text">range:0</span>
     </div>
   </body>
   <script src="./main.js"></script>
+  <style>
+    div{
+      padding-bottom: 40px;
+      border-bottom: 2px solid #666;
+    }
+  </style>
 </html>
