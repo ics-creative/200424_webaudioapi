@@ -49,3 +49,11 @@ hzSlider.addEventListener("input", e => {
   oscillator.frequency.value = e.target.value;
   hzText.innerHTML = e.target.value + "Hz";
 });
+
+const waveButtons = document.querySelectorAll(".wave")
+waveButtons.forEach(button => {
+  const type = button.dataset.wave
+  button.addEventListener("click", () => {
+    oscillator.type = type
+  })
+})
