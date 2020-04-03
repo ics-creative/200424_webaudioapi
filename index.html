@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Audio API</title>
+  </head>
+  <body>
+    <div class="gain">
+      <h2>Gain</h2>
+      <button class="play">play</button>
+      <button class="stop">stop</button>
+      <input
+        id="volume"
+        type="range"
+        min="0"
+        max="1"
+        value="0.5"
+        step="0.05"
+      />
+      <span class="gain-text">gain:0.5</span>
+    </div>
+    <div>
+        <h2>Pan</h2>
+        <input type="range">
+    </div>
+  </body>
+  <script src="./main.js"></script>
+</html>
