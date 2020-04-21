@@ -1,4 +1,4 @@
-const audioContext = new AudioContext()
+const audioContext = new AudioContext();
 
 document.querySelector("#play").addEventListener("click", () => {
   const oscillator = audioContext.createOscillator();
@@ -6,4 +6,4 @@ document.querySelector("#play").addEventListener("click", () => {
   oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // 440はA4(4番目のラ)
   oscillator.connect(audioContext.destination);
   oscillator.start();
-})
+});
