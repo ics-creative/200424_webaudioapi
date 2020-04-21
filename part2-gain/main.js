@@ -4,7 +4,7 @@ const gainNode = audioContext.createGain()
 gainNode.gain.value = 0.5
 
 document.querySelector("#play").addEventListener("click", () => {
-  oscillator = audioContext.createOscillator();
+  const oscillator = audioContext.createOscillator();
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
   // ここでgainNodeをつなげる
