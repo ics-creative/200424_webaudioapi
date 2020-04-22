@@ -17,6 +17,6 @@ document.querySelector("#play").addEventListener("click", () => {
 
 // oscillatorを破棄し再生を停止する
 document.querySelector("#stop").addEventListener("click", () => {
-  oscillator.stop();
+  oscillator?.stop();
   isPlaying = false;
 });

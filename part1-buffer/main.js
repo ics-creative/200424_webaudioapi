@@ -34,6 +34,6 @@ document.querySelector("#play").addEventListener("click", async () => {
 
 // oscillatorを破棄し再生を停止する
 document.querySelector("#stop").addEventListener("click", async () => {
-  sampleSource.stop();
+  sampleSource?.stop();
   isPlaying = false
 });
