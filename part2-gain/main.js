@@ -32,7 +32,7 @@ document.querySelector("#plus").addEventListener("click", () => {
 });
 
 document.querySelector("#minus").addEventListener("click", () => {
-  if (gainNode.gain.value > 0) {
+  if (gainNode.gain.value > 0.05) {
     gainNode.gain.value -= 0.05;
   }
 });

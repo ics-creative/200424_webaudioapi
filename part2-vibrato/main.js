@@ -58,7 +58,7 @@ document.querySelector("#depth-plus").addEventListener("click", () => {
 });
 
 document.querySelector("#depth-minus").addEventListener("click", () => {
-  if (lfo.frequency.value > 3) {
+  if (lfo.frequency.value > 5) {
     depth.gain.value -= 5;
   }
 });
