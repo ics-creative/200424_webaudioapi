@@ -1,4 +1,4 @@
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const ctx = new AudioContext();
 
 const audioElement = document.querySelector("audio");

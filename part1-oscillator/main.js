@@ -1,4 +1,4 @@
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const ctx = new AudioContext();
 let oscillator;
 // 再生中でtrue

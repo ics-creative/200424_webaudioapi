@@ -1,4 +1,4 @@
-const AudioContext = window.AudioContext || window.webkitAudioContext;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 const ctx = new AudioContext();
 const gainNode = ctx.createGain();
 // 音量の初期値を0.5にする
@@ -43,12 +43,12 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 // ビブラートの速さを調節
 document.querySelector("#hz-plus").addEventListener("click", () => {
-  lfo.frequency.value += 3;
+  lfo.frequency.setValueAtTime(lfo.frequency.value + 3, ctx.currentTime);
 });
 
 document.querySelector("#hz-minus").addEventListener("click", () => {
   if (lfo.frequency.value > 3) {
-    lfo.frequency.value -= 3;
+    lfo.frequency.setValueAtTime(lfo.frequency.value - 3, ctx.currentTime);
   }
 });
 
