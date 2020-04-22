@@ -1,39 +1,44 @@
-const audioContext = new AudioContext();
-const gainNode = audioContext.createGain();
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const ctx = new AudioContext();
+const gainNode = ctx.createGain();
 // 音量の初期値を0.5にする
 gainNode.gain.value = 0.5;
 
-//
-const lfo = audioContext.createOscillator();
-const depth = audioContext.createGain();
+let oscillator;
+const lfo = ctx.createOscillator();
+const depth = ctx.createGain();
+let isPlaying = false;
 
 lfo.frequency.value = 10;
 depth.gain.value = 50;
 
-let oscillator
-
 document.querySelector("#play").addEventListener("click", () => {
-  oscillator = audioContext.createOscillator();
+  // 再生中なら二重に再生されないようにする
+  if(isPlaying) return;
+  oscillator = ctx.createOscillator();
   oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-  // lfoの作成
+  oscillator.frequency.setValueAtTime(440, ctx.currentTime);
 
+  // lfoの作成
   lfo.type = "sine";
   // lfoの周波数を30に設定
-  lfo.frequency.setValueAtTime(10, audioContext.currentTime);
+  lfo.frequency.setValueAtTime(10, ctx.currentTime);
 
   // ここでgainNodeをつなげる
-  oscillator.connect(gainNode).connect(audioContext.destination);
+  oscillator.connect(gainNode).connect(ctx.destination);
   oscillator.start();
 
   // gainNodeのgainプロパティにlfoをつなげる
   lfo.connect(depth).connect(oscillator.frequency);
   lfo.start();
+
+  isPlaying = true
 });
 
 // oscillatorを破棄し再生を停止する
 document.querySelector("#stop").addEventListener("click", () => {
   oscillator.stop();
+  isPlaying = false;
 });
 
 // ビブラートの速さを調節

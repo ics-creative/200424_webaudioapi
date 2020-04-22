@@ -1,16 +1,16 @@
-const audioContext = new AudioContext();
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const ctx = new AudioContext();
 
 const audioElement = document.querySelector("audio");
 // Web Audio API内で使える形に変換
-const track = audioContext.createMediaElementSource(audioElement);
-
-// 出力につなげる
-track.connect(audioContext.destination);
+const track = ctx.createMediaElementSource(audioElement);
 
 document.querySelector("#play").addEventListener("click", () => {
-    if(audioContext.state === "suspended") {
-        audioContext.resume();
+    if(ctx.state === "suspended") {
+        ctx.resume();
     }
+    // 出力につなげる
+    track.connect(ctx.destination);
     audioElement.play();
 });
 
