@@ -7,7 +7,14 @@ const track = audioContext.createMediaElementSource(audioElement);
 // 出力につなげる
 track.connect(audioContext.destination);
 
-const playButton = document.querySelector("#play");
-playButton.addEventListener("click", () => {
+document.querySelector("#play").addEventListener("click", () => {
+    if(audioContext.state === "suspended") {
+        audioContext.resume();
+    }
     audioElement.play();
+});
+
+// audioElementを一時停止する
+document.querySelector("#pause").addEventListener("click", () => {
+    audioElement.pause();
 });

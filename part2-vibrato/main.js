@@ -10,8 +10,10 @@ const depth = audioContext.createGain();
 lfo.frequency.value = 10;
 depth.gain.value = 50;
 
+let oscillator
+
 document.querySelector("#play").addEventListener("click", () => {
-  const oscillator = audioContext.createOscillator();
+  oscillator = audioContext.createOscillator();
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
   // lfoの作成

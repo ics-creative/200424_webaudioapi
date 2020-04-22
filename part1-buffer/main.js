@@ -1,5 +1,7 @@
 const audioContext = new AudioContext();
 
+let sampleSource
+
 // 音源を取得しAudioBuffer形式に変換して返す関数
 async function setupSample() {
   const response = await fetch("../sample.mp3");
@@ -11,7 +13,7 @@ async function setupSample() {
 
 // AudioBufferをaudioContextに接続し再生する関数
 function playSample(audioContext, audioBuffer) {
-  const sampleSource = audioContext.createBufferSource();
+  sampleSource = audioContext.createBufferSource();
   // 変換されたバッファーを音源として設定
   sampleSource.buffer = audioBuffer;
   // 出力につなげる
@@ -19,8 +21,12 @@ function playSample(audioContext, audioBuffer) {
   sampleSource.start();
 }
 
-const playButton = document.querySelector("#play");
-playButton.addEventListener("click", async () => {
+document.querySelector("#play").addEventListener("click", async () => {
   const sample = await setupSample();
   playSample(audioContext, sample);
+});
+
+// oscillatorを破棄し再生を停止する
+document.querySelector("#stop").addEventListener("click", async () => {
+  sampleSource.stop();
 });

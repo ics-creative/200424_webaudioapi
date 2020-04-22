@@ -3,13 +3,20 @@ const gainNode = audioContext.createGain();
 // 音量の初期値を0.5にする
 gainNode.gain.value = 0.5;
 
+let oscillator
+
 document.querySelector("#play").addEventListener("click", () => {
-  const oscillator = audioContext.createOscillator();
+  oscillator = audioContext.createOscillator();
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
   // ここでgainNodeをつなげる
   oscillator.connect(gainNode).connect(audioContext.destination);
   oscillator.start();
+});
+
+// oscillatorを破棄し再生を停止する
+document.querySelector("#stop").addEventListener("click", () => {
+  oscillator.stop();
 });
 
 document.querySelector("#plus").addEventListener("click", () => {
