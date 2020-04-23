@@ -9,7 +9,7 @@ document.querySelector("#play").addEventListener("click", () => {
   if(isPlaying) return;
   oscillator = ctx.createOscillator();
   oscillator.type = "sine"; // sine, square, sawtooth, triangleがある
-  oscillator.frequency.setValueAtTime(440, ctx.currentTime); // 440はA4(4番目のラ)
+  oscillator.frequency.setValueAtTime(440, ctx.currentTime); // 440HzはA4(4番目のラ)
   oscillator.connect(ctx.destination);
   oscillator.start();
   isPlaying = true

@@ -12,7 +12,8 @@ document.querySelector("#play").addEventListener("click", () => {
   if(isPlaying) return;
   oscillator = ctx.createOscillator();
   oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(440, ctx.currentTime);
+  // frequencyのvalueは直接代入も可能
+  oscillator.frequency.value = 440;
   // ここでgainNodeをつなげる
   oscillator.connect(gainNode).connect(ctx.destination);
   oscillator.start();

@@ -7,28 +7,28 @@ gainNode.gain.value = 0.5;
 let oscillator;
 const lfo = ctx.createOscillator();
 const depth = ctx.createGain();
-let isPlaying = false;
-
-lfo.frequency.value = 10;
 depth.gain.value = 50;
+
+let isPlaying = false;
 
 document.querySelector("#play").addEventListener("click", () => {
   // 再生中なら二重に再生されないようにする
   if(isPlaying) return;
   oscillator = ctx.createOscillator();
   oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(440, ctx.currentTime);
+  // frequencyのvalueは直接代入も可能
+  oscillator.frequency.value = 440;
 
   // lfoの作成
   lfo.type = "sine";
-  // lfoの周波数を30に設定
-  lfo.frequency.setValueAtTime(10, ctx.currentTime);
+  // lfoの周波数を10Hzに設定
+  lfo.frequency.value = 10
 
-  // ここでgainNodeをつなげる
+  // ここで出力にgainNodeをつなげる
   oscillator.connect(gainNode).connect(ctx.destination);
   oscillator.start();
 
-  // gainNodeのgainプロパティにlfoをつなげる
+  // lfoを、depthを経由してオシレーターの周波数パラメータにつなげる
   lfo.connect(depth).connect(oscillator.frequency);
   lfo.start();
 
@@ -43,12 +43,12 @@ document.querySelector("#stop").addEventListener("click", () => {
 
 // ビブラートの速さを調節
 document.querySelector("#hz-plus").addEventListener("click", () => {
-  lfo.frequency.setValueAtTime(lfo.frequency.value + 3, ctx.currentTime);
+  lfo.frequency.value += 3
 });
 
 document.querySelector("#hz-minus").addEventListener("click", () => {
   if (lfo.frequency.value > 3) {
-    lfo.frequency.setValueAtTime(lfo.frequency.value - 3, ctx.currentTime);
+    lfo.frequency.value -= 3
   }
 });
 
@@ -58,7 +58,7 @@ document.querySelector("#depth-plus").addEventListener("click", () => {
 });
 
 document.querySelector("#depth-minus").addEventListener("click", () => {
-  if (lfo.frequency.value > 5) {
+  if (depth.gain.value > 5) {
     depth.gain.value -= 5;
   }
 });
